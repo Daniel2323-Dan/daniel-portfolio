@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>John Daniel C. Paroligan — Virtual Assistant</title>
+<meta name="description" content="Virtual Assistant portfolio — John Daniel C. Paroligan. E-commerce (Shopify) support, admin & scheduling, and creative content, powered by AI tools. Open to remote VA roles." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg:         #0a0e13;
+  --bg-alt:     #0d131b;
+  --surface:    #111827;
+  --elevated:   #1b2531;
+  --border:     rgba(255, 255, 255, .08);
+  --text:       #e5e7eb;
+  --muted:      #9ca3af;
+  --accent-1:   #22d3ee;
+  --accent-2:   #8b5cf6;
+  --gradient:   linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  --radius:     14px;
+  --shadow:     0 10px 30px rgba(0, 0, 0, .35);
+  --font-body:  "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, .04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+.container { width: min(1080px, 92%); margin-inline: auto; }
+
+a { color: var(--accent-1); text-decoration: none; }
+a:hover { text-decoration: underline; text-decoration-color: var(--accent-2); }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 800; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); letter-spacing: -.02em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.01em; }
+
+section { padding: 90px 0; }
+section#home { padding-top: 40px; }
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+}
+.mono::before { content: ""; width: 26px; height: 1px; background: var(--accent-1); opacity: .6; }
+
+.muted { color: var(--muted); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .55em;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .95rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover { transform: translateY(-2px); text-decoration: none; }
+.btn-primary { background: var(--gradient); color: #04121a; box-shadow: 0 6px 22px rgba(34, 211, 238, .25); }
+.btn-primary:hover { filter: brightness(1.08); box-shadow: 0 10px 30px rgba(139, 92, 246, .35); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--accent-1); color: var(--accent-1); }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(10, 14, 19, .82);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+}
+.logo .dot { color: var(--accent-1); }
+.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-links a {
+  color: var(--muted);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 500;
+  transition: color .15s ease, background .15s ease;
+}
+.nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); text-decoration: none; }
+.nav-links a.active { color: var(--accent-1); }
+
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding: 56px 0; }
+.hero .kicker { font-family: var(--font-mono); color: var(--accent-1); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+.hero h1 .accent { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .subtitle { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); margin: 10px 0 18px; font-weight: 500; }
+.hero p.lead { color: var(--muted); max-width: 52ch; margin-bottom: 28px; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.avatar {
+  width: 240px; height: 240px;
+  border-radius: 28px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  display: grid; place-items: center;
+  overflow: hidden;
+  margin-inline: auto;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+.avatar::after {
+  content: ""; position: absolute; inset: -2px; border-radius: inherit;
+  background: var(--gradient); opacity: .25; filter: blur(14px); z-index: -1;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.avatar .monogram {
+  font-family: var(--font-mono);
+  font-size: 4rem; font-weight: 600;
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+.sec-head { margin-bottom: 40px; }
+.sec-head h2 { margin-top: 10px; }
+.sec-head p { color: var(--muted); max-width: 60ch; margin-top: 8px; }
+
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(34, 211, 238, .4); box-shadow: var(--shadow); }
+.card .ic {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: grid; place-items: center;
+  background: rgba(34, 211, 238, .1);
+  color: var(--accent-1);
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+.card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: .92rem; }
+.card ul { list-style: none; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+
+.skill-group { margin-bottom: 26px; }
+.skill-group h4 {
+  font-family: var(--font-mono);
+  font-size: .8rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 12px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-size: .85rem;
+  color: var(--text);
+  transition: border-color .15s ease, color .15s ease, transform .15s ease;
+}
+.chip:hover { border-color: var(--accent-1); color: var(--accent-1); transform: translateY(-1px); }
+
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
+  width: 2px; background: linear-gradient(var(--accent-1), var(--accent-2)); opacity: .5;
+}
+.tl-item { position: relative; padding: 0 0 28px 10px; }
+.tl-item::before {
+  content: ""; position: absolute; left: -27px; top: 5px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--accent-1);
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-tag { font-family: var(--font-mono); font-size: .75rem; color: var(--muted); letter-spacing: .06em; }
+.tl-item h3 { font-size: 1.1rem; margin: 4px 0 4px; }
+.tl-item p { color: var(--muted); font-size: .92rem; max-width: 60ch; }
+
+.port-links { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+.port-links a { font-size: .85rem; font-weight: 600; color: var(--accent-1); display: inline-flex; gap: .35em; align-items: center; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; }
+.stat b { font-family: var(--font-mono); font-size: 1.5rem; display: block; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stat span { color: var(--muted); font-size: .8rem; }
+
+.contact-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 34px;
+  max-width: 720px; margin-inline: auto; text-align: center;
+}
+.contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 22px 0 8px; }
+.contact-links .btn { margin: 0; }
+.avail {
+  display: inline-flex; align-items: center; gap: .5em;
+  font-family: var(--font-mono); font-size: .78rem; color: #34d399;
+  margin-top: 14px;
+}
+.avail::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 0 rgba(52, 211, 153, .5); animation: pulse 2s infinite; }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, .45); }
+  70%  { box-shadow: 0 0 0 9px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+footer { border-top: 1px solid var(--border); padding: 26px 0 40px; text-align: center; }
+footer p { color: var(--muted); font-size: .82rem; }
+footer .mono { display: inline-flex; margin-top: 6px; }
+footer .mono::before { display: none; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; text-align: left; gap: 30px; }
+  .avatar { width: 180px; height: 180px; }
+  .grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  section { padding: 64px 0; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="container nav-inner">
+    <a class="logo" href="#home">JD<span class="dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <section id="home" class="hero container">
+    <div>
+      <div class="kicker">Virtual Assistant — Ilocos Sur, Philippines</div>
+      <h1>Hi, I&rsquo;m <span class="accent">John Daniel</span></h1>
+      <div class="subtitle">Virtual Assistant · E-commerce &amp; Admin Support</div>
+      <p class="lead">Civil Engineering student who runs on systems — I help busy teams and founders with Shopify, admin, scheduling, email, and content — powered by AI tools.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:danielinyt23@gmail.com">Let&rsquo;s work together</a>
+        <a class="btn btn-ghost" href="#services">View services</a>
+      </div>
+    </div>
+    <div>
+      <div class="avatar" id="avatar">
+        <span class="monogram">JD</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">01 · about</span>
+        <h2>Who I am</h2>
+        <p><b>John Daniel C. Paroligan</b>, Civil Engineering student at the University of Northern Philippines (Ilocos Sur, PH). I&rsquo;ve run and supported online businesses since 2020, and I&rsquo;m now putting my workflow skills to work as a Virtual Assistant — turning chaos into clean systems for founders, e-commerce teams, and agencies.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>3+</b><span>yrs online buy &amp; sell</span></div>
+        <div class="stat"><b>2</b><span>yrs middleman service</span></div>
+        <div class="stat"><b>20+</b><span>tools &amp; skills</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">02 · services</span>
+        <h2>How I can help</h2>
+        <p>Four ways I plug into your team — pick what you need, I&rsquo;ll handle the rest.</p>
+      </div>
+      <div class="grid grid-2">
+        <article class="card">
+          <div class="ic">🛒</div>
+          <h3>E-commerce &amp; Shopify</h3>
+          <p>Store design, product listing, order &amp; customer support — I keep your store running and your customers happy.</p>
+          <ul><li class="chip">Shopify</li><li class="chip">Product listing</li><li class="chip">E-commerce</li><li class="chip">Customer service</li></ul>
+        </article>
+        <article class="card">
+          <div class="ic">📅</div>
+          <h3>Admin &amp; Scheduling</h3>
+          <p>Calendar management, inbox-to-zero email handling, data entry, and tidy file organization — the backbone work done right.</p>
+          <ul><li class="chip">Calendar</li><li class="chip">Email management</li><li class="chip">Data entry</li><li class="chip">File organization</li></ul>
+        </article>
+        <article class="card">
+          <div class="ic">🎥</div>
+          <h3>Creative Content</h3>
+          <p>Video editing, social media management, and eye-catching graphics across TikTok, Facebook, YouTube, Instagram &amp; X.</p>
+          <ul><li class="chip">CapCut</li><li class="chip">Alight Motion</li><li class="chip">DaVinci Resolve</li><li class="chip">Canva</li><li class="chip">Adobe</li><li class="chip">AutoCAD</li></ul>
+        </article>
+        <article class="card">
+          <div class="ic">🤖</div>
+          <h3>AI-Powered Workflows</h3>
+          <p>I use ChatGPT and AI tools to speed up writing, research, and repetitive admin — finishing more in less time.</p>
+          <ul><li class="chip">ChatGPT &amp; AI tools</li><li class="chip">Productivity</li><li class="chip">Automation</li><li class="chip">Scriptwriting</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">03 · skills</span>
+        <h2>Toolkit &amp; skills</h2>
+        <p>Everything I use daily to keep work organized, on-brand, and on schedule.</p>
+      </div>
+      <div class="skill-group">
+        <h4>E-commerce &amp; Customer Support</h4>
+        <div class="chips"><span class="chip">Shopify</span><span class="chip">Product listing</span><span class="chip">E-commerce</span><span class="chip">Shopify designing</span><span class="chip">Customer service</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Admin &amp; Operations</h4>
+        <div class="chips"><span class="chip">Calendar management</span><span class="chip">Email management (Gmail Zero)</span><span class="chip">Data entry</span><span class="chip">File organization</span><span class="chip">Time management</span><span class="chip">Administrative support</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Office &amp; Communication Tools</h4>
+        <div class="chips"><span class="chip">Google Workspace</span><span class="chip">Microsoft Office</span><span class="chip">Notion</span><span class="chip">Slack</span><span class="chip">Zoom</span><span class="chip">OnlineJobs.ph</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>AI &amp; Tech</h4>
+        <div class="chips"><span class="chip">ChatGPT &amp; AI tools</span><span class="chip">AI-assisted workflows</span><span class="chip">Tech literacy</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Creative</h4>
+        <div class="chips"><span class="chip">Video editing</span><span class="chip">CapCut</span><span class="chip">Alight Motion</span><span class="chip">DaVinci Resolve</span><span class="chip">Graphics</span><span class="chip">Canva</span><span class="chip">Adobe</span><span class="chip">AutoCAD</span></div>
+      </div>
+      <div class="skill-group">
+        <h4>Soft Skills</h4>
+        <div class="chips"><span class="chip">Attention to detail</span><span class="chip">Written communication</span><span class="chip">Time management</span><span class="chip">Organization</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">04 · experience</span>
+        <h2>Work experience</h2>
+        <p>Hands-on experience running real online operations — not just coursework.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <span class="tl-tag">2020 — 2023</span>
+          <h3>Online Buy &amp; Sell (own venture)</h3>
+          <p>Vigan City, Ilocos Sur, Philippines</p>
+          <p>Ran an online resell operation for 3 years — product sourcing, listing, customer communication, and delivery coordination end to end.</p>
+        </div>
+        <div class="tl-item">
+          <span class="tl-tag">2021 — 2023</span>
+          <h3>Online Middleman Service</h3>
+          <p>Vigan City, Ilocos Sur, Philippines</p>
+          <p>2 years brokering online transactions between buyers and sellers — managing orders, payments, and handoffs reliably.</p>
+        </div>
+        <div class="tl-item">
+          <span class="tl-tag">Freelance — ongoing</span>
+          <h3>Content Scriptwriting &amp; Video Editing</h3>
+          <p>Vigan City, Ilocos Sur, Philippines</p>
+          <p>Wrote video scripts and edited content for social — scripts, hooks, cuts, and pacing for short-form platforms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">05 · portfolio</span>
+        <h2>Side builds &amp; creative work</h2>
+        <p>Projects I designed and built with AI tools — proof of the tech &amp; creative fluency I bring to your team.</p>
+      </div>
+      <div class="grid grid-2">
+        <article class="card">
+          <div class="ic">🎬</div>
+          <h3>RecapSynth — AI video pipeline</h3>
+          <p>Turns comic &amp; manhwa chapters into narrated recap videos end to end — panel &amp; speech-bubble detection, OCR, AI scriptwriting, Edge-TTS voiceover, and 1920×1080 Ken-Burns renders. Wrapped in a full React workflow app with ink credits and fair-use scoring.</p>
+          <div class="port-links"><a href="#contact" target="_blank">Request a demo ↗</a></div>
+        </article>
+        <article class="card">
+          <div class="ic">📱</div>
+          <h3>PhoneFeed — device-in-environment renderer</h3>
+          <p>A single-file 1080×1920 renderer that recreates the "phone-on-the-desk" look: a static desk scene with a perspective-warped phone whose screen scrolls a vertical feed of cards with pop-ins, like-bursts, and notification toasts.</p>
+          <div class="port-links"><a href="#contact" target="_blank">Request a demo ↗</a></div>
+        </article>
+        <article class="card">
+          <div class="ic">🎂</div>
+          <h3>"Happy Birthday, My Love" — interactive card</h3>
+          <p>A single-file, zero-dependency interactive greeting card — CSS envelope, confetti, floating hearts, and a stop-motion melody. Polished front-end storytelling, shareable from one link.</p>
+          <div class="port-links"><a href="#contact" target="_blank">See it work ↗</a></div>
+        </article>
+        <article class="card">
+          <div class="ic">💻</div>
+          <h3>This portfolio — single-file site</h3>
+          <p>The page you&rsquo;re looking at: one self-contained HTML file, no build step. Config-driven content, dark technical design, and placeholder-aware contact buttons — trivial to edit and deploy anywhere.</p>
+          <div class="port-links"><a href="#contact" target="_blank">Hire me ↗</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <span class="mono">06 · contact</span>
+        <h2 style="margin-top:12px">Let&rsquo;s work together</h2>
+        <p class="muted" style="margin-top:8px">I&rsquo;m open to remote VA roles — solo support or full team integration.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:danielinyt23@gmail.com">Email me</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/john-daniel-paroligan-126087368/" target="_blank">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://www.facebook.com/daniel.paroligan.7" target="_blank">Facebook</a>
+          <a class="btn btn-ghost" href="https://wa.me/639674498035" target="_blank">WhatsApp</a>
+          <a class="btn btn-ghost" href="https://v2.onlinejobs.ph/jobseekers/info/5116123" target="_blank">OnlineJobs.ph</a>
+        </div>
+        <span class="avail">Available for remote VA work</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="year"></span> John Daniel C. Paroligan. Built with HTML, CSS + JS.</p>
+  </div>
+</footer>
+
+<script>
+const avatar = document.getElementById('avatar');
+const imageSrc = "assets/headshot.jpg";
+const probe = new Image();
+probe.onload = () => {
+  avatar.innerHTML = `<img src="${imageSrc}" alt="Portrait of John Daniel C. Paroligan" />`;
+};
+probe.onerror = () => {
+  console.error(`Failed to load image: ${imageSrc}`);
+};
+probe.src = imageSrc;
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
