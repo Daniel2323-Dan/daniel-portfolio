@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>John Daniel C. Paroligan — Virtual Assistant</title>
+<meta name="description" content="Virtual Assistant portfolio — John Daniel C. Paroligan. E-commerce (Shopify) support, admin & scheduling, and creative content, powered by AI tools. Open to remote VA roles." />
+
+<!-- Fonts: Inter (body) + JetBrains Mono (labels / code accents) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   DESIGN TOKENS  (dark & technical)
+   ============================================================ */
+:root {
+  --bg:         #0a0e13;
+  --bg-alt:     #0d131b;
+  --surface:    #111827;
+  --elevated:   #1b2531;
+  --border:     rgba(255, 255, 255, .08);
+  --text:       #e5e7eb;
+  --muted:      #9ca3af;
+  --accent-1:   #22d3ee;  /* cyan   */
+  --accent-2:   #8b5cf6;  /* violet */
+  --gradient:   linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  --radius:     14px;
+  --shadow:     0 10px 30px rgba(0, 0, 0, .35);
+  --font-body:  "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* faint technical grid backdrop (fixed, low-contrast) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, .04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+.container { width: min(1080px, 92%); margin-inline: auto; }
+
+a { color: var(--accent-1); text-decoration: none; }
+a:hover { text-decoration: underline; text-decoration-color: var(--accent-2); }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 800; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); letter-spacing: -.02em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.01em; }
+
+section { padding: 90px 0; }
+section#home { padding-top: 40px; }
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+}
+.mono::before { content: ""; width: 26px; height: 1px; background: var(--accent-1); opacity: .6; }
+
+.muted { color: var(--muted); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .55em;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .95rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover { transform: translateY(-2px); text-decoration: none; }
+.btn-primary { background: var(--gradient); color: #04121a; box-shadow: 0 6px 22px rgba(34, 211, 238, .25); }
+.btn-primary:hover { filter: brightness(1.08); box-shadow: 0 10px 30px rgba(139, 92, 246, .35); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--accent-1); color: var(--accent-1); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(10, 14, 19, .82);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+}
+.logo .dot { color: var(--accent-1); }
+.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-links a {
+  color: var(--muted);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 500;
+  transition: color .15s ease, background .15s ease;
+}
+.nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); text-decoration: none; }
+.nav-links a.active { color: var(--accent-1); }
+.nav-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.4rem; cursor: pointer; }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding: 56px 0; }
+.hero .kicker { font-family: var(--font-mono); color: var(--accent-1); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+.hero h1 .accent { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .subtitle { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); margin: 10px 0 18px; font-weight: 500; }
+.hero p.lead { color: var(--muted); max-width: 52ch; margin-bottom: 28px; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.avatar {
+  width: 240px; height: 240px;
+  border-radius: 28px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  display: grid; place-items: center;
+  overflow: hidden;
+  margin-inline: auto;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+.avatar::after { /* subtle glow ring */
+  content: ""; position: absolute; inset: -2px; border-radius: inherit;
+  background: var(--gradient); opacity: .25; filter: blur(14px); z-index: -1;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.avatar .monogram {
+  font-family: var(--font-mono);
+  font-size: 4rem; font-weight: 600;
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.avatar-caption { text-align: center; font-family: var(--font-mono); color: var(--muted); font-size: .72rem; margin-top: 14px; letter-spacing: .08em; }
+
+/* ---------- Section header ---------- */
+.sec-head { margin-bottom: 40px; }
+.sec-head h2 { margin-top: 10px; }
+.sec-head p { color: var(--muted); max-width: 60ch; margin-top: 8px; }
+
+/* ---------- Cards (services / portfolio) ---------- */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(34, 211, 238, .4); box-shadow: var(--shadow); }
+.card .ic {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: grid; place-items: center;
+  background: rgba(34, 211, 238, .1);
+  color: var(--accent-1);
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+.card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: .92rem; }
+.card ul { list-style: none; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Skill chips ---------- */
+.skill-group { margin-bottom: 26px; }
+.skill-group h4 {
+  font-family: var(--font-mono);
+  font-size: .8rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 12px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-size: .85rem;
+  color: var(--text);
+  transition: border-color .15s ease, color .15s ease, transform .15s ease;
+}
+.chip:hover { border-color: var(--accent-1); color: var(--accent-1); transform: translateY(-1px); }
+
+/* ---------- Experience timeline ---------- */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
+  width: 2px; background: linear-gradient(var(--accent-1), var(--accent-2)); opacity: .5;
+}
+.tl-item { position: relative; padding: 0 0 28px 10px; }
+.tl-item::before {
+  content: ""; position: absolute; left: -27px; top: 5px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--accent-1);
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-tag { font-family: var(--font-mono); font-size: .75rem; color: var(--muted); letter-spacing: .06em; }
+.tl-item h3 { font-size: 1.1rem; margin: 4px 0 4px; }
+.tl-item p { color: var(--muted); font-size: .92rem; max-width: 60ch; }
+
+/* ---------- Portfolio cards ---------- */
+.port-links { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+.port-links a { font-size: .85rem; font-weight: 600; color: var(--accent-1); display: inline-flex; gap: .35em; align-items: center; }
+
+/* ---------- Stats strip ---------- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; }
+.stat b { font-family: var(--font-mono); font-size: 1.5rem; display: block; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stat span { color: var(--muted); font-size: .8rem; }
+
+/* ---------- Contact ---------- */
+.contact-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 34px;
+  max-width: 720px; margin-inline: auto; text-align: center;
+}
+.contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 22px 0 8px; }
+.contact-links .btn { margin: 0; }
+.avail {
+  display: inline-flex; align-items: center; gap: .5em;
+  font-family: var(--font-mono); font-size: .78rem; color: #34d399;
+  margin-top: 14px;
+}
+.avail::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 0 rgba(52, 211, 153, .5); animation: pulse 2s infinite; }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, .45); }
+  70%  { box-shadow: 0 0 0 9px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+.email-edit-hint { color: var(--muted); font-size: .8rem; margin-top: 14px; font-family: var(--font-mono); }
+.email-edit-hint code { color: var(--accent-1); background: var(--elevated); padding: 2px 6px; border-radius: 6px; font-size: .74rem; }
+
+/* ---------- Footer ---------- */
+footer { border-top: 1px solid var(--border); padding: 26px 0 40px; text-align: center; }
+footer p { color: var(--muted); font-size: .82rem; }
+footer .mono { display: inline-flex; margin-top: 6px; }
+footer .mono::before { display: none; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---------- Reveal on scroll ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* hero entrance: fade + scale */
+.hero > div:first-child {
+  animation: fadeInUp .8s ease-out .1s both !important;
+}
+.hero .avatar {
+  animation: scaleIn .8s ease-out .3s both !important;
+}
+
+/* cards: staggered pop-in */
+.card {
+  animation: scaleIn .6s ease-out forwards !important;
+  opacity: 0 !important;
+}
+.grid-2 .card:nth-child(1) { animation-delay: .1s !important; }
+.grid-2 .card:nth-child(2) { animation-delay: .2s !important; }
+.grid-3 .card:nth-child(1) { animation-delay: .1s !important; }
+.grid-3 .card:nth-child(2) { animation-delay: .2s !important; }
+.grid-3 .card:nth-child(3) { animation-delay: .3s !important; }
+
+/* section headers slide in */
+.sec-head {
+  animation: slideInLeft .7s ease-out forwards !important;
+  opacity: 0 !important;
+}
+
+/* buttons: lift on hover */
+.btn {
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(34, 211, 238, .2);
+}
+
+/* smooth scroll links */
+a[href^="#"] {
+  transition: color .15s ease;
+}
+
+/* ---------- Focus state ---------- */
+:focus-visible { outline: 2px solid var(--accent-1); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; text-align: left; gap: 30px; }
+  .avatar { width: 180px; height: 180px; }
+  .grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  section { padding: 64px 0; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute; top: 64px; left: 0; right: 0;
+    flex-direction: column; gap: 2px;
+    background: rgba(10, 14, 19, .97);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 12px 16px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 12px; }
+  .stats { grid-template-columns: 1fr; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-reveal] { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="container nav-inner">
+    <a class="logo" href="#home">JD<span class="dot">.</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <!-- ==================== HERO ==================== -->
+  <section id="home" class="hero container">
+    <div>
+      <div class="kicker">Virtual Assistant &mdash; Ilocos Sur, Philippines</div>
+      <h1>Hi, I&rsquo;m <span class="accent" id="heroName">John Daniel</span></h1>
+      <div class="subtitle" id="heroTitle">Virtual Assistant · E-commerce &amp; Admin Support</div>
+      <p class="lead" id="heroLead">Civil Engineering student who runs on systems — I help busy teams and founders with Shopify, admin, scheduling, email, and content — powered by AI tools.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" id="ctaMail" href="mailto:danielinyt23@gmail.com">Let&rsquo;s work together</a>
+        <a class="btn btn-ghost" href="#services">View services</a>
+      </div>
+    </div>
+    <div>
+      <div class="avatar" id="avatar">
+        <span class="monogram">JD</span>
+      </div>
+      <div class="avatar-caption" id="avatarCaption">[ optional: drop assets/headshot.jpg ]</div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section id="about">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">01 · about</span>
+        <h2>Who I am</h2>
+        <p id="aboutText">Hello! I&rsquo;m <b>John Daniel C. Paroligan</b>, currently a Civil Engineering student at the University of Northern Philippines (Ilocos Sur, PH). I&rsquo;ve run and supported online businesses since 2020, and I&rsquo;m now putting my workflow skills to work as a Virtual Assistant — turning chaos into clean systems for founders, e-commerce teams, and agencies.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="stat1Num">3+</b><span id="stat1Label">yrs online buy &amp; sell</span></div>
+        <div class="stat"><b id="stat2Num">2</b><span id="stat2Label">yrs middleman service</span></div>
+        <div class="stat"><b id="stat3Num">20+</b><span id="stat3Label">tools &amp; skills</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES ==================== -->
+  <section id="services">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">02 · services</span>
+        <h2>How I can help</h2>
+        <p>Four ways I plug into your team — pick what you need, I&rsquo;ll handle the rest.</p>
+      </div>
+      <div class="grid grid-2" id="servicesGrid"><!-- cards injected --></div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section id="skills">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">03 · skills</span>
+        <h2>Toolkit &amp; skills</h2>
+        <p>Everything I use daily to keep work organized, on-brand, and on schedule.</p>
+      </div>
+      <div id="skillGroups"><!-- chips injected --></div>
+    </div>
+  </section>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section id="experience">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">04 · experience</span>
+        <h2>Work experience</h2>
+        <p>Hands-on experience running real online operations — not just coursework.</p>
+      </div>
+      <div class="timeline" id="timeline"><!-- items injected --></div>
+    </div>
+  </section>
+
+  <!-- ==================== PORTFOLIO ==================== -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="sec-head">
+        <span class="mono">05 · portfolio</span>
+        <h2>Side builds &amp; creative work</h2>
+        <p>Projects I designed and built with AI tools — proof of the tech &amp; creative fluency I bring to your team.</p>
+      </div>
+      <div class="grid grid-2" id="portfolioGrid"><!-- cards injected --></div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <span class="mono">06 · contact</span>
+        <h2 style="margin-top:12px">Let&rsquo;s work together</h2>
+        <p class="muted" style="margin-top:8px">I&rsquo;m open to remote VA roles — solo support or full team integration.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" id="ctaMail2" href="mailto:danielinyt23@gmail.com">Email me</a>
+          <a class="btn btn-ghost" id="ctaLinkedin" href="https://www.linkedin.com/in/john-daniel-paroligan-126087368/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+          <a class="btn btn-ghost" id="ctaFacebook" href="https://www.facebook.com/daniel.paroligan.7" rel="noopener noreferrer" target="_blank">Facebook</a>
+          <a class="btn btn-ghost" id="ctaWhatsapp" href="https://wa.me/639674498035" rel="noopener noreferrer" target="_blank">WhatsApp</a>
+          <a class="btn btn-ghost" id="ctaOnlinejobs" href="https://v2.onlinejobs.ph/jobseekers/info/5116123" rel="noopener noreferrer" target="_blank">OnlineJobs.ph</a>
+        </div>
+        <span class="avail">Available for remote VA work</span>
+        <div class="email-edit-hint">Edit the <code>email</code> / <code>linkedin</code> / <code>facebook</code> / <code>whatsapp</code> / <code>onlinejobs</code> fields at the top of <code>CONFIG</code> in this file.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="year"></span> John Daniel C. Paroligan. Built by hand with HTML, CSS + JS.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ╦═╗╔═╗╦╔═╗╦    ═╗ ╦
+   ╠╦╝║ ║║║╔═╗║  ╔╩╦╝  EDIT YOUR SITE HERE — one place, everything.
+   ╩╚═╚═╝╩╚═╝╩═╝  ╩ ╚═
+   Change your email, links, skills, services, experience, and more
+   below. Keep the quotes (" ") and commas where they are.
+   ============================================================ */
+const CONFIG = {
+  name: "John Daniel C. Paroligan",
+  shortName: "John Daniel",          // shown in the big hero line
+  title: "Virtual Assistant · E-commerce & Admin Support",
+  tagline: "Civil Engineering student who runs on systems — I help busy teams and founders with Shopify, admin, scheduling, email, and content — powered by AI tools.",
+
+  contact: {
+    email:      "danielinyt23@gmail.com",
+    linkedin:   "https://www.linkedin.com/in/john-daniel-paroligan-126087368/",
+    facebook:   "https://www.facebook.com/daniel.paroligan.7",
+    whatsapp:   "https://wa.me/639674498035",            // +63 967 449 8035
+    phoneLabel: "+63 967 449 8035",
+    onlinejobs: "https://v2.onlinejobs.ph/jobseekers/info/5116123",
+  },
+
+  about:
+    "Hello! I’m <b>John Daniel C. Paroligan</b>, currently a Civil Engineering student at the University of Northern Philippines (Ilocos Sur, PH). I’ve run and supported online businesses since 2020, and I’m now putting my workflow skills to work as a Virtual Assistant — turning chaos into clean systems for founders, e-commerce teams, and agencies.",
+
+  stats: [
+    { number: "3+", label: "yrs online buy &amp; sell" },
+    { number: "2",  label: "yrs middleman service" },
+    { number: "20+",label: "tools &amp; skills" },
+  ],
+
+  services: [
+    {
+      icon: "&#128722;",                             // shopping cart emoji (swap to any emoji)
+      title: "E-commerce & Shopify",
+      text: "Store design, product listing, order & customer support — I keep your store running and your customers happy.",
+      tags: ["Shopify", "Product listing", "E-commerce", "Customer service"],
+    },
+    {
+      icon: "&#128197;",
+      title: "Admin & Scheduling",
+      text: "Calendar management, inbox-to-zero email handling, data entry, and tidy file organization — the backbone work done right.",
+      tags: ["Calendar", "Email management", "Data entry", "File organization"],
+    },
+    {
+      icon: "&#127909;",
+      title: "Creative Content",
+      text: "Video editing, social media management, and eye-catching graphics across TikTok, Facebook, YouTube, Instagram & X.",
+      tags: ["CapCut", "Alight Motion", "DaVinci Resolve", "Canva", "Adobe", "AutoCAD"],
+    },
+    {
+      icon: "&#129302;",
+      title: "AI-Powered Workflows",
+      text: "I use ChatGPT and AI tools to speed up writing, research, and repetitive admin — finishing more in less time.",
+      tags: ["ChatGPT & AI tools", "Productivity", "Automation", "Scriptwriting"],
+    },
+  ],
+
+  skills: [
+    { group: "E-commerce & Customer Support", items: ["Shopify", "Product listing", "E-commerce", "Shopify designing", "Customer service"] },
+    { group: "Admin & Operations", items: ["Calendar management", "Email management (Gmail Zero)", "Data entry", "File organization", "Time management", "Administrative support"] },
+    { group: "Office & Communication Tools", items: ["Google Workspace", "Microsoft Office", "Notion", "Slack", "Zoom", "OnlineJobs.ph"] },
+    { group: "AI & Tech", items: ["ChatGPT & AI tools", "AI-assisted workflows", "Tech literacy"] },
+    { group: "Creative", items: ["Video editing", "CapCut", "Alight Motion", "DaVinci Resolve", "Graphics", "Canva", "Adobe", "AutoCAD"] },
+    { group: "Soft Skills", items: ["Attention to detail", "Written communication", "Time management", "Organization"] },
+  ],
+
+  experience: [
+    {
+      period: "2020 — 2023",
+      role: "Online Buy &amp; Sell (own venture)",
+      place: "Vigan City, Ilocos Sur, Philippines",
+      detail: "Ran an online resell operation for 3 years — product sourcing, listing, customer communication, and delivery coordination end to end.",
+    },
+    {
+      period: "2021 — 2023",
+      role: "Online Middleman Service",
+      place: "Vigan City, Ilocos Sur, Philippines",
+      detail: "2 years brokering online transactions between buyers and sellers — managing orders, payments, and handoffs reliably.",
+    },
+    {
+      period: "Freelance — ongoing",
+      role: "Content Scriptwriting &amp; Video Editing",
+      place: "Vigan City, Ilocos Sur, Philippines",
+      detail: "Wrote video scripts and edited content for social — scripts, hooks, cuts, and pacing for short-form platforms.",
+    },
+  ],
+
+  // Toggle: set to false to hide the whole "Side builds" section.
+  showPortfolio: true,
+  portfolio: [
+    {
+      icon: "&#127916;",
+      title: "RecapSynth — AI video pipeline",
+      text: "Turns comic &amp; manhwa chapters into narrated recap videos end to end — panel &amp; speech-bubble detection, OCR, AI scriptwriting, Edge-TTS voiceover, and 1920×1080 Ken-Burns renders. Wrapped in a full React workflow app with ink credits and fair-use scoring.",
+      links: [
+        { label: "Request a demo", href: "#contact" },
+      ],
+    },
+    {
+      icon: "&#128241;",
+      title: "PhoneFeed — device-in-environment renderer",
+      text: "A single-file 1080×1920 renderer that recreates the “phone-on-the-desk” look: a static desk scene with a perspective-warped phone whose screen scrolls a vertical feed of cards with pop-ins, like-bursts, and notification toasts.",
+      links: [
+        { label: "Request a demo", href: "#contact" },
+      ],
+    },
+    {
+      icon: "&#127874;",
+      title: "“Happy Birthday, My Love” — interactive card",
+      text: "A single-file, zero-dependency interactive greeting card — CSS envelope, confetti, floating hearts, and a stop-motion melody. Polished front-end storytelling, shareable from one link.",
+      links: [
+        { label: "See it work", href: "#contact" },
+      ],
+    },
+    {
+      icon: "&#128187;",
+      title: "This portfolio — single-file site",
+      text: "The page you’re looking at: one self-contained HTML file, no build step. Config-driven content, dark technical design, and placeholder-aware contact buttons — trivial to edit and deploy anywhere.",
+      links: [
+        { label: "Hire me", href: "#contact" },
+      ],
+    },
+  ],
+};
+/* ============ end of CONFIG — nothing below needs editing ============ */
+"use strict";
+
+const $ = (sel) => document.querySelector(sel);
+
+/* ---- render name / links / about ---- */
+$("#heroName").textContent = CONFIG.shortName;
+$("#heroTitle").textContent = CONFIG.title;
+$("#heroLead").textContent = CONFIG.tagline;
+$("#aboutText").innerHTML = CONFIG.about;
+document.title = CONFIG.name + " — Virtual Assistant";
+
+const mail = "mailto:" + CONFIG.contact.email;
+$("#ctaMail").href = mail;
+$("#ctaMail2").href = mail;
+
+/* ---- headshot: use assets/headshot.jpg if it exists ---- */
+const avatar = $("#avatar");
+const probe = new Image();
+probe.onload = () => {
+  avatar.innerHTML = '<img src="assets/headshot.jpg" alt="Portrait of ' + CONFIG.name + '" />';
+  $("#avatarCaption").textContent = CONFIG.name;
+};
+probe.onerror = () => { /* no photo — keep monogram */ };
+probe.src = "assets/headshot.jpg";
+
+/* ---- stats ---- */
+$("#stat1Num").textContent = CONFIG.stats[0].number;
+$("#stat1Label").innerHTML = CONFIG.stats[0].label;
+$("#stat2Num").textContent = CONFIG.stats[1].number;
+$("#stat2Label").innerHTML = CONFIG.stats[1].label;
+$("#stat3Num").textContent = CONFIG.stats[2].number;
+$("#stat3Label").innerHTML = CONFIG.stats[2].label;
+
+/* ---- services cards ---- */
+$("#servicesGrid").innerHTML = CONFIG.services.map((s) => `
+  <article class="card">
+    <div class="ic">${s.icon}</div>
+    <h3>${s.title}</h3>
+    <p>${s.text}</p>
+    <ul>${s.tags.map((t) => `<li class="chip">${t}</li>`).join("")}</ul>
+  </article>`).join("");
+
+/* ---- skill groups ---- */
+$("#skillGroups").innerHTML = CONFIG.skills.map((g) => `
+  <div class="skill-group">
+    <h4>${g.group}</h4>
+    <div class="chips">${g.items.map((i) => `<span class="chip">${i}</span>`).join("")}</div>
+  </div>`).join("");
+
+/* ---- experience timeline ---- */
+$("#timeline").innerHTML = CONFIG.experience.map((e) => `
+  <div class="tl-item">
+    <span class="tl-tag">${e.period}</span>
+    <h3>${e.role}</h3>
+    <p>${e.place}</p>
+    <p>${e.detail}</p>
+  </div>`).join("");
+
+/* ---- portfolio cards (togglable) ---- */
+const portfolioSection = $("#portfolio");
+if (!CONFIG.showPortfolio) {
+  portfolioSection.remove();
+} else {
+  $("#portfolioGrid").innerHTML = CONFIG.portfolio.map((p) => `
+    <article class="card">
+      <div class="ic">${p.icon}</div>
+      <h3>${p.title}</h3>
+      <p>${p.text}</p>
+      <div class="port-links">${(p.links || []).map((l) =>
+        `<a href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label} &#8599;</a>`
+      ).join("")}</div>
+    </article>`).join("");
+}
+
+/* ---- contact buttons: wire real links ---- */
+const contactBtns = [
+  ["#ctaLinkedin",   CONFIG.contact.linkedin],
+  ["#ctaFacebook",   CONFIG.contact.facebook],
+  ["#ctaWhatsapp",   CONFIG.contact.whatsapp],
+  ["#ctaOnlinejobs", CONFIG.contact.onlinejobs],
+];
+contactBtns.forEach(([sel, url]) => {
+  const btn = $(sel);
+  if (url) {
+    btn.href = url;
+    btn.target = "_blank";
+  }
+});
+
+/* ---- footer year ---- */
+$("#year").textContent = new Date().getFullYear();
+
+/* ============================================================
+   NAV: mobile toggle + active-section highlight
+   ============================================================ */
+const toggle = $(".nav-toggle");
+const links = $("#navLinks");
+toggle.addEventListener("click", () => {
+  const open = links.classList.toggle("open");
+  toggle.setAttribute("aria-expanded", open);
+});
+// close the mobile menu when a link is tapped
+links.addEventListener("click", (e) => {
+  if (e.target.tagName === "A") { links.classList.remove("open"); toggle.setAttribute("aria-expanded", false); }
+});
+
+const sections = [...document.querySelectorAll("main section[id]")];
+const navAnchors = [...document.querySelectorAll(".nav-links a")];
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (en.isIntersecting) {
+      navAnchors.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id));
+    }
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+sections.forEach((s) => spy.observe(s));
+
+/* ============================================================
+   SCROLL REVEAL (respects prefers-reduced-motion via CSS)
+   ============================================================ */
+const revealEls = document.querySelectorAll(".sec-head, .card, .stat, .tl-item, .skill-group, .avatar, .contact-card");
+const reveal = new IntersectionObserver((entries) => {
+  entries.forEach((en, i) => {
+    if (en.isIntersecting) {
+      en.target.style.transitionDelay = Math.min(i * 40, 240) + "ms";
+      en.target.classList.add("is-visible");
+      reveal.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach((el) => { el.setAttribute("data-reveal", ""); reveal.observe(el); });
+</script>
+</body>
+</html>
